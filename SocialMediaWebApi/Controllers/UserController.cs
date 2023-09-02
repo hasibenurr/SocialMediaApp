@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using SocialMediaWebApi.Business.Services.IServices;
+using SocialMediaWebApi.Dtos;
 using SocialMediaWebApi.Entities;
 
 namespace SocialMediaWebApi.Controllers
@@ -10,34 +11,26 @@ namespace SocialMediaWebApi.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IMapper mapper)
         {
-            #region MongoDB Connection Settings
-            //var dbHost = "localhost";
-            //var dbName = "dms_user";
-            //var connectionString = $"mongodb://{dbHost}:27017/{dbName}";
-
-            //var mongoUrl = MongoUrl.Create(connectionString);
-            //var mongoClient = new MongoClient(mongoUrl);
-            //var dataBase = mongoClient.GetDatabase(mongoUrl.DatabaseName);
-
-            //_userCollection = dataBase.GetCollection<User>("user");
-            #endregion
-
             _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public ActionResult<List<User>> GetUsers()
+        public ActionResult<List<UserDto>> GetUsers()
         {
-            return _userService.Get();
+            var users = _mapper.Map<List<UserDto>>(_userService.Get());
+
+            return users;
         }
 
         [HttpGet("{id}")]
-        public ActionResult<User> GetById(string userId)
+        public ActionResult<User> GetById(string Id)
         {        
-            var user = _userService.GetById(userId);
+            var user = _userService.GetById(Id);
             if (user == null)
             {
                 return NotFound("User not found");
@@ -47,41 +40,43 @@ namespace SocialMediaWebApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create([FromBody] User user)
+        public ActionResult Create([FromBody] UserDto dto)
         {
+            var user = _mapper.Map<User>(dto);
+
             _userService.Create(user);
 
             return Ok($"User {user.Id} succesfully created!");
         }
 
         [HttpPut("{id}")]
-        public ActionResult Update(string userId, [FromBody]User user)
+        public ActionResult Update(string Id, [FromBody]UserDto dto)
         {
-            var existingUser = _userService.GetById(userId);
+            var existingUser = _userService.GetById(Id);
 
             if (existingUser == null)
             {
                 return NotFound("User not found");
             }
 
-            _userService.Update(userId, user);
+            _userService.Update(Id, _mapper.Map<User>(dto));
 
-            return Ok($"User {user.Id} succesfully updated!");
+            return Ok($"User {Id} succesfully updated!");
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(string userId)
+        public ActionResult Delete(string Id)
         {
-            var existingUser = _userService.GetById(userId);
+            var existingUser = _userService.GetById(Id);
 
             if (existingUser == null)
             {
                 return NotFound("User not found");
             }
 
-            _userService.Delete(userId);
+            _userService.Delete(Id);
 
-            return Ok($"User {userId} succesfully deleted!");
+            return Ok($"User {Id} succesfully deleted!");
         }
     }
 }

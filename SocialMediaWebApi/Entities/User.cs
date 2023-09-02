@@ -21,7 +21,10 @@ namespace SocialMediaWebApi.Entities
         [BsonElement("email"), BsonRepresentation(BsonType.String)]
         public string Email { get; set; } = String.Empty;
 
+        /// <summary>
+        /// Relation with Post table
+        /// </summary>
         [BsonElement("posts")]
-        public List<Post> Posts { get; set; } = new List<Post>();
+        public List<Post> Posts { get; set; } = new List<Post>(); 
     }
 }
