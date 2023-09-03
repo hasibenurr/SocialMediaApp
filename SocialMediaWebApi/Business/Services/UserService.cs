@@ -7,39 +7,66 @@ namespace SocialMediaWebApi.Business.Services
 {
     public class UserService : IUserService
     {
-        private readonly IMongoCollection<User> _service;
+        private readonly IMongoClient _mongoClient;
+        private readonly IMongoCollection<User> _userCollection;
+        private readonly IMongoCollection<Post> _postCollection;
 
         public UserService(IDatabaseSettings settings, IMongoClient mongoClient)
         {
+            _mongoClient = mongoClient;
+
             var database = mongoClient.GetDatabase(settings.DatabaseName);
-            _service = database.GetCollection<User>("users");
+            _userCollection = database.GetCollection<User>("users");
+            _postCollection = database.GetCollection<Post>("posts");
         }
 
         public User Create(User user)
         {
-            _service.InsertOne(user);
+            _userCollection.InsertOne(user);
 
             return user;
         }
 
         public List<User> Get()
         {
-           return _service.Find(user => true).ToList();
+            return _userCollection.Find(user => true).ToList();
         }
 
         public User GetById(string id)
         {
-            return _service.Find(user => user.Id == id).FirstOrDefault();
+            return _userCollection.Find(user => user.Id == id).FirstOrDefault();
         }
 
         public void Update(string id, User user)
         {
-            _service.ReplaceOne(user => user.Id == id, user);
+            _userCollection.ReplaceOne(user => user.Id == id, user);
         }
 
-        public void Delete(string id)
+        public async void Delete(string id)
         {
-            _service.DeleteOne(user=>user.Id == id);
+            // Begin Transaction
+            using var session = await _mongoClient.StartSessionAsync();
+
+            session.StartTransaction();
+            try
+            {
+                /// All posts that the user have must be deleted
+                var postsList = _postCollection.Find(post => post.UserId == id).ToList();
+                foreach (var post in postsList)
+                {
+                    _postCollection.DeleteOne(post => post.Id == post.Id);
+                }
+
+                _userCollection.DeleteOne(user => user.Id == id);
+
+                /// Made it here without error? Commit the transaction
+                await session.CommitTransactionAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error writing to MongoDB: " + e.Message);
+                await session.AbortTransactionAsync();
+            }
         }
     }
 }

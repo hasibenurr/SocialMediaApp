@@ -1,4 +1,5 @@
-﻿using SocialMediaWebApi.Entities;
+﻿using MongoDB.Bson;
+using SocialMediaWebApi.Entities;
 
 namespace SocialMediaWebApi.Business.Services.IServices
 {

@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using SocialMediaWebApi.Business.Services.IServices;
 using SocialMediaWebApi.Dtos;
 using SocialMediaWebApi.Entities;
+using System.Security.Cryptography;
 
 namespace SocialMediaWebApi.Controllers
 {
@@ -28,10 +30,10 @@ namespace SocialMediaWebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Post> GetById(string Id)
+        public ActionResult<Post> GetById(string id)
         {        
-            var Post = _postService.GetById(Id);
-            if (Post == null)
+            var Post = _postService.GetById(id);
+            if (Post is null)
             {
                 return NotFound("Post not found");
             }
@@ -49,33 +51,33 @@ namespace SocialMediaWebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult Update(string Id, [FromBody]PostDto dto)
+        public ActionResult Update(string id, [FromBody]PostDto dto)
         {
-            var existingPost = _postService.GetById(Id);
+            var existingPost = _postService.GetById(id);
 
-            if (existingPost == null)
+            if (existingPost is null)
             {
                 return NotFound("Post not found");
             }
 
-            _postService.Update(Id, _mapper.Map<Post>(dto));
+            _postService.Update(id, _mapper.Map<Post>(dto));
 
-            return Ok($"Post {Id} succesfully updated!");
+            return Ok($"Post {id} succesfully updated!");
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(string Id)
+        public ActionResult Delete(string id)
         {
-            var existingPost = _postService.GetById(Id);
+            var existingPost = _postService.GetById(id);
 
-            if (existingPost == null)
+            if (existingPost is null)
             {
                 return NotFound("Post not found");
             }
 
-            _postService.Delete(Id);
+            _postService.Delete(id);
 
-            return Ok($"Post {Id} succesfully deleted!");
+            return Ok($"Post {id} succesfully deleted!");
         }
     }
 }

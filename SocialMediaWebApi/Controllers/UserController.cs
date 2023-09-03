@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using SocialMediaWebApi.Business.Services.IServices;
 using SocialMediaWebApi.Dtos;
 using SocialMediaWebApi.Entities;
@@ -28,10 +29,10 @@ namespace SocialMediaWebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<User> GetById(string Id)
+        public ActionResult<User> GetById(string id)
         {        
-            var user = _userService.GetById(Id);
-            if (user == null)
+            var user = _userService.GetById(id);
+            if (user is null)
             {
                 return NotFound("User not found");
             }
@@ -50,33 +51,33 @@ namespace SocialMediaWebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult Update(string Id, [FromBody]UserDto dto)
+        public ActionResult Update(string id, [FromBody]UserDto dto)
         {
-            var existingUser = _userService.GetById(Id);
+            var existingUser = _userService.GetById(id);
 
-            if (existingUser == null)
+            if (existingUser is null)
             {
                 return NotFound("User not found");
             }
 
-            _userService.Update(Id, _mapper.Map<User>(dto));
+            _userService.Update(id, _mapper.Map<User>(dto));
 
-            return Ok($"User {Id} succesfully updated!");
+            return Ok($"User {id} succesfully updated!");
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(string Id)
+        public ActionResult Delete(string id)
         {
-            var existingUser = _userService.GetById(Id);
+            var existingUser = _userService.GetById(id);
 
-            if (existingUser == null)
+            if (existingUser is null)
             {
                 return NotFound("User not found");
             }
 
-            _userService.Delete(Id);
+            _userService.Delete(id);
 
-            return Ok($"User {Id} succesfully deleted!");
+            return Ok($"User {id} succesfully deleted!");
         }
     }
 }

@@ -1,10 +1,11 @@
-﻿using SocialMediaWebApi.Entities;
+﻿using MongoDB.Bson;
+using SocialMediaWebApi.Entities;
 
 namespace SocialMediaWebApi.Dtos
 {
     public class UserDto
     {
-        public string Id { get; set; }
+        public string Id { get; set; } = String.Empty;
 
         public string Name { get; set; } = String.Empty;
 
