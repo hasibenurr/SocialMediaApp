@@ -1,0 +1,97 @@
+<nav
+  class="navbar navbar-light"
+  style="background-color: #e3f2fd; margin-bottom: 20px"
+>
+  <a class="navbar-brand" style="color: darkslateblue; margin-left: 25px"
+    >Welcome to Authorium!</a
+  >
+  <form class="form-inline my-2 my-lg-0">
+    <span class="navbar-text" style="margin-right: 20px">
+      Are you not an author yet?
+    </span>
+    <button
+      class="btn btn-primary btn-sm my-2 my-sm-0"
+      style="margin-right: 20px"
+      type="submit"
+    >
+      Sign Up
+    </button>
+  </form>
+</nav>
+
+<form class="form-signin">
+  <img src=".\.\assets\logo.PNG" style="float: right" />
+  <h5 class="form-signin-heading">What do you think?</h5>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon1">@</span>
+    <input
+      type="username"
+      class="form-control"
+      placeholder="Username"
+      aria-label="Username"
+      aria-describedby="basic-addon1"
+      [(ngModel)]="user.username"
+      required
+      autofocus
+    />
+  </div>
+  <!-- <label for="inputEmail" class="sr-only">Email address</label>
+  <input
+    name="email"
+    [(ngModel)]="user.username"
+    type="email"
+    id="inputEmail"
+    class="form-control"
+    placeholder="Email address"
+    required
+    autofocus
+  /> -->
+  <div class="input-group mb-3">
+    <input
+      type="password"
+      class="form-control"
+      aria-label="Password"
+      placeholder="Password"
+      [(ngModel)]="user.password"
+      required
+    />
+    <span class="input-group-text">👁</span>
+  </div>
+  <!-- <label for="inputPassword" class="sr-only">Password</label>
+  <input
+    name="password"
+    [(ngModel)]="user.password"
+    type="password"
+    id="inputPassword"
+    class="form-control"
+    placeholder="Password"
+    required
+  /> -->
+
+  <button
+    class="btn btn-outline-primary my-2 my-sm-0"
+    (click)="validateLogin()"
+    type="submit"
+  >
+    Sign in
+  </button>
+</form>
+
+<footer class="py-3 my-4">
+  <p class="text-center fw-bold">◼ You have authority in the Authorium ◼</p>
+  <ul
+    class="nav justify-content-center border-bottom pb-3 mb-3"
+    style="background-color: #e3f2fd"
+  >
+    <li class="nav-item">
+      <small class="px-2 text-muted">Discuss anything you want 💬</small>
+    </li>
+    <li class="nav-item">
+      <small class="px-2 text-muted">Share with us what you know 📚</small>
+    </li>
+    <li class="nav-item">
+      <small class="px-2 text-muted">Meet other Authors 🙋🏻‍♂️🙋🏼‍♀️</small>
+    </li>
+  </ul>
+  <p class="text-center text-muted">© 2023 Authorium, Inc</p>
+</footer>
