@@ -16,7 +16,11 @@ namespace SocialMediaWebApi.Entities
 
         [Required]
         [BsonElement("surname"), BsonRepresentation(BsonType.String)]
-        public string SurName { get; set; } = String.Empty;
+        public string Surname { get; set; } = String.Empty;
+
+        [Required]
+        [BsonElement("username"), BsonRepresentation(BsonType.String)]
+        public string Username { get; set; } = String.Empty;
 
         [Required]
         [BsonElement("password"), BsonRepresentation(BsonType.String)]

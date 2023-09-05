@@ -8,7 +8,10 @@ namespace SocialMediaWebApi.Dtos
 
         public string UserId { get; set; } = String.Empty;
 
+        public string Title { get; set; } = String.Empty;
+
         public string Message { get; set; } = String.Empty;
 
+        public int Category { get; set; } 
     }
 }

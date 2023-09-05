@@ -47,7 +47,7 @@ namespace SocialMediaWebApi.Controllers
 
             _userService.Create(user);
 
-            return Ok($"User {user.Id} succesfully created!");
+            return Ok();
         }
 
         [HttpPut("{id}")]
@@ -62,7 +62,7 @@ namespace SocialMediaWebApi.Controllers
 
             _userService.Update(id, _mapper.Map<User>(dto));
 
-            return Ok($"User {id} succesfully updated!");
+            return Ok();
         }
 
         [HttpDelete("{id}")]
@@ -77,7 +77,7 @@ namespace SocialMediaWebApi.Controllers
 
             _userService.Delete(id);
 
-            return Ok($"User {id} succesfully deleted!");
+            return Ok();
         }
     }
 }

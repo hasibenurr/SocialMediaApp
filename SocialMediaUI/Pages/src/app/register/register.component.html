@@ -5,19 +5,6 @@
   <a class="navbar-brand" style="color: darkslateblue; margin-left: 25px"
     >Welcome to Authorium!</a
   >
-  <form class="form-inline my-2 my-lg-0">
-    <span class="navbar-text" style="margin-right: 20px">
-      Are you not an author yet?
-    </span>
-    <button
-      class="btn btn-primary btn-sm my-2 my-sm-0"
-      style="margin-right: 20px"
-      (click)="redirectRegisterPage()"
-      type="submit"
-    >
-      Sign Up
-    </button>
-  </form>
 </nav>
 
 <form class="form-signin">
@@ -25,13 +12,39 @@
     <img class="img_layer" src=".\.\assets\stars.gif" />
     <img class="img_layer" src=".\.\assets\logo_transperent.png" />
   </div>
-  <h5 class="form-signin-heading">Tell us what do you think?</h5>
+  <h5 class="form-signin-heading">You are about to become a writer.</h5>
+  <div class="input-group mb-3">
+    <input
+      type="name"
+      class="form-control"
+      placeholder="Enter your name"
+      aria-label="name"
+      aria-describedby="basic-addon1"
+      [(ngModel)]="loginUser.name"
+      [ngModelOptions]="{ standalone: true }"
+      required
+      autofocus
+    />
+  </div>
+  <div class="input-group mb-3">
+    <input
+      type="surname"
+      class="form-control"
+      placeholder="Enter your surname"
+      aria-label="surname"
+      aria-describedby="basic-addon1"
+      [(ngModel)]="loginUser.surname"
+      [ngModelOptions]="{ standalone: true }"
+      required
+      autofocus
+    />
+  </div>
   <div class="input-group mb-3">
     <span class="input-group-text" id="basic-addon1">@</span>
     <input
       type="username"
       class="form-control"
-      placeholder="Username"
+      placeholder="Enter a username"
       aria-label="Username"
       aria-describedby="basic-addon1"
       [(ngModel)]="loginUser.username"
@@ -40,45 +53,38 @@
       autofocus
     />
   </div>
-  <!-- <label for="inputEmail" class="sr-only">Email address</label>
-  <input
-    name="email"
-    [(ngModel)]="user.username"
-    type="email"
-    id="inputEmail"
-    class="form-control"
-    placeholder="Email address"
-    required
-    autofocus
-  /> -->
+  <div class="input-group mb-3">
+    <input
+      type="email"
+      class="form-control"
+      placeholder="enter your email"
+      aria-label="email"
+      aria-describedby="basic-addon1"
+      [(ngModel)]="loginUser.email"
+      [ngModelOptions]="{ standalone: true }"
+      required
+      autofocus
+    />
+  </div>
+
   <div class="input-group mb-3">
     <input
       type="password"
       class="form-control"
       aria-label="Password"
-      placeholder="Password"
+      placeholder="Enter password"
       [(ngModel)]="loginUser.password"
       [ngModelOptions]="{ standalone: true }"
       required
     />
   </div>
-  <!-- <label for="inputPassword" class="sr-only">Password</label>
-  <input
-    name="password"
-    [(ngModel)]="user.password"
-    type="password"
-    id="inputPassword"
-    class="form-control"
-    placeholder="Password"
-    required
-  /> -->
 
   <button
     class="btn btn-outline-primary my-2 my-sm-0"
-    (click)="validateLogin()"
+    (click)="createUser()"
     type="submit"
   >
-    Sign in
+    Sign Up
   </button>
 </form>
 
@@ -100,6 +106,3 @@
   </ul>
   <p class="text-center text-muted">© 2023 Authorium, Inc</p>
 </footer>
-
-<app-register [users]="allUser"></app-register>
-<app-home [users]="allUser"></app-home>

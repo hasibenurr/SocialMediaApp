@@ -9,7 +9,9 @@ namespace SocialMediaWebApi.Dtos
 
         public string Name { get; set; } = String.Empty;
 
-        public string SurName { get; set; } = String.Empty;
+        public string Surname { get; set; } = String.Empty;
+
+        public string Username { get; set; } = String.Empty;
 
         public string Password { get; set; } = String.Empty;
 
