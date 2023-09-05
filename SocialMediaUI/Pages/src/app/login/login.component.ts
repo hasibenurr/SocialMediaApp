@@ -12,6 +12,7 @@ import { AppService } from '../services/app.service';
 export class LoginComponent implements OnInit {
   public loginUser: User;
   public allUser: User[] = [];
+  accessToken: string="";
 
   constructor(private appService: AppService, private loginService: LoginService, private router: Router) {
     this.loginUser = new User();
@@ -41,12 +42,17 @@ export class LoginComponent implements OnInit {
           x.username == this.loginUser.username &&
           x.password == this.loginUser.password
       );
+      var checkIsUserInfoCorrect = this.allUser.find(
+        (x) =>
+          x.username == this.loginUser.username ||
+          x.password == this.loginUser.password
+      );
       debugger;
       if (userId != undefined && checkUserExist) {
         console.log("User Id: ", userId);
         this.appService.userId.next(userId);
         this.router.navigate(['/home']);
-      } else if(userId != undefined && checkUserExist == undefined){
+      } else if(checkUserExist == undefined && checkIsUserInfoCorrect){
         alert('Wrong username or password!');
       }
       else{
@@ -60,4 +66,5 @@ export class LoginComponent implements OnInit {
   redirectRegisterPage(){
     this.router.navigate(['/register']);
   }
+
 }

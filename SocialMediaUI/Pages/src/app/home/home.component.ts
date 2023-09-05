@@ -16,32 +16,8 @@ export class HomeComponent implements OnInit {
   @Input() users: User[];
   public user: User;
   public username?: string;
-  public posts: Post[] = [
-    // {
-    //   id: '',
-    //   userId: '',
-    //   title: 'This is a wider card',
-    //   message:
-    //     'This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer',
-    //   category: 1,
-    // },
-    // {
-    //   id: '',
-    //   userId: '',
-    //   title: 'This is a standart card',
-    //   message:
-    //     'This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer',
-    //   category: 2,
-    // },
-    // {
-    //   id: '',
-    //   userId: '',
-    //   title: 'This is a sports card',
-    //   message:
-    //     'This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer',
-    //   category: 3,
-    // },
-  ];
+  public posts: Post[] = [];
+  accessToken: string = '';
 
   constructor(
     private homeService: HomeService,
@@ -53,7 +29,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger;
+    this.authentication();
+
     this.user.id = this.appService.userId.getValue();
     this.username = this.users.find((x) => x.id == this.user.id)?.username;
 
@@ -68,6 +45,18 @@ export class HomeComponent implements OnInit {
       } else if (post.category == 3) {
         post.style = 'text-info';
       }
+    });
+  }
+
+  authentication() {
+    this.appService.getAccessToken().subscribe({
+      next: (token) => {
+        this.accessToken = token.accessToken;
+        console.log('Token: ', token);
+      },
+      error: (response) => {
+        console.log('Error is' + response);
+      },
     });
   }
 

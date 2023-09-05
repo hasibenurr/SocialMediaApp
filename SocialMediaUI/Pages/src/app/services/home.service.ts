@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Post } from '../models/post.model';
 
@@ -13,7 +13,7 @@ export class HomeService {
     return this.http.get<Post[]>(this.baseApiUrl + '/api/Post');
   }
 
-  createPost(newPost: Post): Observable<Post> {
-    return this.http.post<Post>(this.baseApiUrl + 'api/Post', newPost);
+  createPost(newPost: Post, headers:HttpHeaders): Observable<Post> {
+    return this.http.post<Post>(this.baseApiUrl + 'api/Post', newPost, {headers: headers});
   }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using SocialMediaWebApi.Business.Services.IServices;
@@ -9,6 +10,7 @@ using System.Security.Cryptography;
 namespace SocialMediaWebApi.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class PostController : ControllerBase
     {
@@ -21,6 +23,7 @@ namespace SocialMediaWebApi.Controllers
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult<List<PostDto>> GetPosts()
         {
@@ -29,6 +32,7 @@ namespace SocialMediaWebApi.Controllers
             return posts;
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public ActionResult<Post> GetById(string id)
         {        
@@ -41,6 +45,7 @@ namespace SocialMediaWebApi.Controllers
             return Post;
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Create([FromBody] PostDto dto)
         {
@@ -50,6 +55,7 @@ namespace SocialMediaWebApi.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public ActionResult Update(string id, [FromBody]PostDto dto)
         {
@@ -65,6 +71,7 @@ namespace SocialMediaWebApi.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {

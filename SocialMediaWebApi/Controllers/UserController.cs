@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using SocialMediaWebApi.Business.Services.IServices;
@@ -8,6 +9,7 @@ using SocialMediaWebApi.Entities;
 namespace SocialMediaWebApi.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -20,6 +22,7 @@ namespace SocialMediaWebApi.Controllers
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult<List<UserDto>> GetUsers()
         {
@@ -28,6 +31,7 @@ namespace SocialMediaWebApi.Controllers
             return users;
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public ActionResult<User> GetById(string id)
         {        
@@ -40,6 +44,7 @@ namespace SocialMediaWebApi.Controllers
             return user;
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Create([FromBody] UserDto dto)
         {
@@ -50,6 +55,7 @@ namespace SocialMediaWebApi.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public ActionResult Update(string id, [FromBody]UserDto dto)
         {
@@ -65,6 +71,7 @@ namespace SocialMediaWebApi.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
