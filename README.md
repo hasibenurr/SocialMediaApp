@@ -1,8 +1,6 @@
 # Authorium - Social Media App
 Authorium created with .NET Core, Angular and MongoDB. 
-![GitLab last commit](https://img.shields.io/gitlab/last-commit/:SocialMediaApp)
-![Static Badge](https://img.shields.io/.NET Core/:6.0)
-![Static Badge](https://img.shields.io/Angular/:16.2.1)
+![GitLab last commit](https://img.shields.io/gitlab/last-commit/:[SocialMediaApp](https://github.com/hasibenurr/SocialMediaApp.git))
 
 ## Introduction
 Authorium is a place where you can discuss any topic, share your life or feelings. 
@@ -34,6 +32,9 @@ $ cd ../SocialMediaAppSolution
 $ npm install
 $ npm start
 ```
+or
+
+Clone the repository by `(https://github.com/hasibenurr/SocialMediaApp.git)`
 
 ## Scope of functionalities
 Project includes:
