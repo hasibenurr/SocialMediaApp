@@ -1,6 +1,5 @@
 # Authorium - Social Media App
 Authorium created with .NET Core, Angular and MongoDB. 
-![GitLab last commit](https://img.shields.io/gitlab/last-commit/:[SocialMediaApp](https://github.com/hasibenurr/SocialMediaApp.git))
 
 ## Introduction
 Authorium is a place where you can discuss any topic, share your life or feelings. 
