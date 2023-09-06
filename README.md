@@ -1,9 +1,13 @@
 # Authorium - Social Media App
 Authorium created with .NET Core, Angular and MongoDB. 
+![GitLab last commit](https://img.shields.io/gitlab/last-commit/:SocialMediaApp)
+![Static Badge](https://img.shields.io/.NET Core/:6.0)
+![Static Badge](https://img.shields.io/Angular/:16.2.1)
 
 ## Introduction
 Authorium is a place where you can discuss any topic, share your life or feelings. 
 As an author, you can freely post or follow other authors' posts.
+This project is an example for develop basic API and web application.
 
 ## Technologies
 Project is created with:
@@ -21,3 +25,20 @@ Project is created with:
 - Framework: Angular
 - UI Library: Bootstrap 5.3.1
 - Service Calls: rxjs – reactive pattern
+
+## Launch
+To run this project, install it locally using npm:
+
+```
+$ cd ../SocialMediaAppSolution
+$ npm install
+$ npm start
+```
+
+## Scope of functionalities
+Project includes:
+- Login page
+- Sign Up page
+- Home page which has users all posts and recent views
+- Create new post page
+- User settings page
