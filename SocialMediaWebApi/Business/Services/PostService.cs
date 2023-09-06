@@ -1,5 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using SocialMediaWebApi.Business.Services.IServices;
 using SocialMediaWebApi.Entities;
 using SocialMediaWebApi.Entities.IEntities;

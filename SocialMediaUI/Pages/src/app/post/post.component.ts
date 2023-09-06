@@ -1,19 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { User } from '../models/user.model';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from '../models/post.model';
 import { HomeService } from '../services/home.service';
 import { AppService } from '../services/app.service';
 import { HttpHeaders } from '@angular/common/http';
 
 @Component({
-  selector: 'app-post',
+  selector: 'app-newpost',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css'],
 })
 export class PostComponent implements OnInit {
-  @Input() users: User[];
-  public username?: string;
   public post: Post;
   public categoryName: string = '';
   accessToken: string = '';
@@ -21,18 +18,24 @@ export class PostComponent implements OnInit {
   constructor(
     private homeService: HomeService,
     private appService: AppService,
+    private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
     this.post = new Post();
-    this.users = [];
   }
 
   ngOnInit(): void {
-    debugger;
     this.authentication();
 
-    this.post.userId = this.appService.userId.getValue();
-    this.username = this.users.find((x) => x.id == this.post.userId)?.username;
+    // Get User Id from URL
+    this.activatedRoute.paramMap.subscribe({
+      next: (params) => {
+        const id = params.get('id');
+        if (id) {
+          this.post.userId = id;
+        }
+      },
+    });
 
     if (this.post.category == 1) {
       //daily
@@ -66,7 +69,6 @@ export class PostComponent implements OnInit {
   }
 
   createNewPost() {
-    debugger;
     if (
       this.post.userId &&
       this.post.title &&
@@ -78,7 +80,7 @@ export class PostComponent implements OnInit {
       });
       this.homeService.createPost(this.post, header).subscribe({
         next: (result) => {
-          this.router.navigate(['']);
+          this.router.navigate(['/home', this.post.userId]);
           console.log('Post created!');
         },
         error: (response) => {

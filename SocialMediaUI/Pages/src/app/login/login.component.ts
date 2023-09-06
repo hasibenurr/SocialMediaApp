@@ -11,18 +11,22 @@ import { AppService } from '../services/app.service';
 })
 export class LoginComponent implements OnInit {
   public loginUser: User;
-  public allUser: User[] = [];
-  accessToken: string="";
+  public allUser!: User[];
+  accessToken: string = '';
 
-  constructor(private appService: AppService, private loginService: LoginService, private router: Router) {
+  constructor(
+    private appService: AppService,
+    private loginService: LoginService,
+    private router: Router
+  ) {
     this.loginUser = new User();
   }
 
   ngOnInit(): void {
     this.loginService.getAllUsers().subscribe({
-      next: (user) => {
-        this.allUser = user;
-        console.log('All users have been gotten!');
+      next: (users) => {
+        this.allUser = users;
+        console.log('All users have been gotten!', this.allUser);
       },
       error: (response) => {
         console.log('Error is' + response);
@@ -32,12 +36,7 @@ export class LoginComponent implements OnInit {
 
   validateLogin() {
     if (this.loginUser.username && this.loginUser.password) {
-      var userId = this.allUser.find(
-        (x) =>
-          x.username == this.loginUser.username &&
-          x.password == this.loginUser.password
-      )?.id;
-      var checkUserExist = this.allUser.find(
+      var user = this.allUser.find(
         (x) =>
           x.username == this.loginUser.username &&
           x.password == this.loginUser.password
@@ -47,15 +46,12 @@ export class LoginComponent implements OnInit {
           x.username == this.loginUser.username ||
           x.password == this.loginUser.password
       );
-      debugger;
-      if (userId != undefined && checkUserExist) {
-        console.log("User Id: ", userId);
-        this.appService.userId.next(userId);
-        this.router.navigate(['/home']);
-      } else if(checkUserExist == undefined && checkIsUserInfoCorrect){
+      //debugger;
+      if (user != undefined && user) {
+        this.router.navigate(['/home', user?.id]);
+      } else if (user == undefined && checkIsUserInfoCorrect) {
         alert('Wrong username or password!');
-      }
-      else{
+      } else {
         alert('This user does not exist!');
       }
     } else {
@@ -63,8 +59,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  redirectRegisterPage(){
+  redirectRegisterPage() {
     this.router.navigate(['/register']);
   }
-
 }

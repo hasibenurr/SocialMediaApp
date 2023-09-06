@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
 using SocialMediaWebApi.Business.Services.IServices;
 using SocialMediaWebApi.Dtos;
 using SocialMediaWebApi.Entities;
-using System.Security.Cryptography;
 
 namespace SocialMediaWebApi.Controllers
 {

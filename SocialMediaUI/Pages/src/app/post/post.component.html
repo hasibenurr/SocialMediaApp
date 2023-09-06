@@ -2,22 +2,20 @@
   class="navbar navbar-expand-md bg-light navbar-light"
   style="justify-content: space-between"
 >
-  <a class="navbar-brand" style="color: darkslateblue; margin-left: 20px"
-    >Author {{ username }},</a
-  >
-
   <ul class="navbar-nav">
     <li class="nav-item active">
-      <a class="nav-link" href="home">🏠 Home <span class="sr-only"></span></a>
+      <a class="nav-link" [routerLink]="['/home', post.userId]"
+        >🏠 Home <span class="sr-only"></span
+      ></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="new-post">✍🏽 Write New Post</a>
+      <a class="nav-link">✍🏽 Writing New Post</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">📚 Authorium Library</a>
+      <a class="nav-link">📚 Authorium Library</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">🔏 Author Profile</a>
+      <a class="nav-link">🔏 Author Profile</a>
     </li>
     <li class="nav-item">
       <a class="nav-link">⚙ Settings</a>
@@ -37,32 +35,109 @@
   </button>
 </nav>
 
+<div class="card-group">
+  <div class="card text-white bg-secondary" style="margin-top: 20px">
+    <div class="card-header">Daily Posts</div>
+    <div class="card-body">
+      <p class="card-text">
+        Tell us about your daily life, feelings or experiences and even more...
+      </p>
+    </div>
+    <div class="card-footer">
+      <small>Please enter "1" into category filed</small>
+    </div>
+  </div>
+  <div class="card text-white bg-success" style="margin-top: 20px">
+    <div class="card-header">Academic Articles</div>
+    <div class="card-body">
+      <p class="card-text">
+        Posts containing academic or scientific information. Maybe astronomy is
+        also included in this category :)
+      </p>
+    </div>
+    <div class="card-footer">
+      <small>Please enter "2" into category filed</small>
+    </div>
+  </div>
+  <div class="card text-white bg-info" style="margin-top: 20px">
+    <div class="card-header">General Culture</div>
+    <div class="card-body">
+      <p class="card-text">
+        Places to visit, songs, language, religion, in short, everything related
+        to different lives.
+      </p>
+    </div>
+    <div class="card-footer">
+      <small>Please enter "3" into category filed</small>
+    </div>
+  </div>
+  <div class="card text-white bg-danger" style="margin-top: 20px">
+    <div class="card-header">Agenda</div>
+    <div class="card-body">
+      <p class="card-text">
+        Every subject that occupies the agenda, including politics. You should
+        be careful what you write in this category.
+      </p>
+    </div>
+    <div class="card-footer">
+      <small>Please enter "4" into category filed</small>
+    </div>
+  </div>
+</div>
+
 <form>
-  <div class="form-group">
-    <label for="title"> Title</label>
+  <div class="form-group" style="max-width: 15rem; margin-top: inherit">
+    <p class="font-weight-bold">Category</p>
+    <input
+      type="number"
+      class="form-control"
+      id="category"
+      placeholder="Category"
+      [(ngModel)]="post.category"
+      [ngModelOptions]="{ standalone: true }"
+      min="1"
+      max="4"
+    />
+  </div>
+  <div class="form-group" style="max-width: 40rem; margin-top: inherit">
+    <p class="font-weight-bold">Title</p>
     <input
       type="text"
       class="form-control"
       id="title"
       placeholder="Title"
+      [(ngModel)]="post.title"
+      [ngModelOptions]="{ standalone: true }"
     />
   </div>
-  <div class="form-group">
-    <label for="category"> Post Category</label>
-    <select class="form-control" id="category">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="message"> Your {{categoryName}} message:</label>
+  <div class="form-group" style="max-width: 57rem; margin-top: inherit">
+    <p class="font-weight-bold">Your {{ categoryName }} message:</p>
     <textarea
       class="form-control"
       id="message"
       rows="5"
+      [(ngModel)]="post.message"
+      [ngModelOptions]="{ standalone: true }"
     ></textarea>
+  </div>
+
+  <div
+    class="card text-white bg-dark mb-3"
+    style="max-width: 57rem; margin-top: inherit"
+  >
+    <div class="card-header">Authorium Rules</div>
+    <div class="card-body">
+      <p class="card-text">
+        Dear Author, please follow the rules detailed below. If the rules are
+        not followed, your authorship rights will be taken away. 1- It is
+        forbidden to use provocative words or to make offensive or
+        discriminatory statements to the other party. 2- Advertising of personal
+        and community accounts is prohibited. 3- It is forbidden to share
+        sexual, blood, brutality. 4- It is forbidden to write about illegal
+        works. 5- Posts containing agenda and politics are not allowed to be at
+        the level of provocation.
+      </p>
+    </div>
   </div>
 
   <button

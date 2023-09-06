@@ -1,7 +1,4 @@
-﻿using MongoDB.Bson;
-using SocialMediaWebApi.Entities;
-
-namespace SocialMediaWebApi.Dtos
+﻿namespace SocialMediaWebApi.Dtos
 {
     public class UserDto
     {

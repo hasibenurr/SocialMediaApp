@@ -1,6 +1,4 @@
-﻿using MongoDB.Bson;
-
-namespace SocialMediaWebApi.Dtos
+﻿namespace SocialMediaWebApi.Dtos
 {
     public class PostDto
     {

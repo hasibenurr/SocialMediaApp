@@ -5,7 +5,6 @@ import { Token } from '../models/token.model';
 
 @Injectable()
 export class AppService {
-  public userId = new BehaviorSubject('');
   baseApiUrl: string = 'https://localhost:7245/';
 
   constructor(private http: HttpClient) {}

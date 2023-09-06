@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
@@ -11,8 +11,8 @@ import { AppService } from '../services/app.service';
 })
 export class RegisterComponent implements OnInit {
   public loginUser: User;
-  @Input() users: User[];
   accessToken: string = '';
+  allUser!: User[];
 
   constructor(
     private loginService: LoginService,
@@ -20,11 +20,20 @@ export class RegisterComponent implements OnInit {
     private router: Router
   ) {
     this.loginUser = new User();
-    this.users = [];
   }
 
   ngOnInit(): void {
     this.authentication();
+
+    this.loginService.getAllUsers().subscribe({
+      next: (users) => {
+        this.allUser = users;
+        console.log('All users have been gotten!', this.allUser);
+      },
+      error: (response) => {
+        console.log('Error is' + response);
+      },
+    });
   }
 
   authentication() {
@@ -40,7 +49,7 @@ export class RegisterComponent implements OnInit {
   }
 
   createUser() {
-    debugger;
+    //debugger;
     if (
       this.loginUser.name &&
       this.loginUser.surname &&
@@ -48,12 +57,12 @@ export class RegisterComponent implements OnInit {
       this.loginUser.email &&
       this.loginUser.password
     ) {
-      var checkUserExist = this.users.find(
+      var checkUserExist = this.allUser.find(
         (x) =>
           x.username == this.loginUser.username &&
           x.password == this.loginUser.password
       );
-      var checkUserNameExist = this.users.find(
+      var checkUserNameExist = this.allUser.find(
         (x) => x.username == this.loginUser.username
       );
       if (checkUserExist) {
@@ -67,8 +76,8 @@ export class RegisterComponent implements OnInit {
         });
         this.loginService.createUser(this.loginUser, header).subscribe({
           next: (result) => {
-            this.router.navigate(['home']);
-            console.log('User created!');
+            this.router.navigate(['']);
+            alert('User created successfully!');
           },
           error: (response) => {
             console.log('Error is' + response);
@@ -78,5 +87,9 @@ export class RegisterComponent implements OnInit {
     } else {
       alert('Please enter complete information!');
     }
+  }
+
+  redirectMainPage() {
+    this.router.navigate(['']);
   }
 }
