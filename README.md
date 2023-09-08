@@ -42,3 +42,5 @@ Project includes:
 - Home page which has users all posts and recent views
 - Create new post page
 - User settings page
+
+Also implemented JWT based authentication logic in project. ^-^ 
